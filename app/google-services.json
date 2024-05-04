@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "773844111555",
+    "project_id": "instaclonekotlin-c7a64",
+    "storage_bucket": "instaclonekotlin-c7a64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773844111555:android:ddffa32bde4ad1de245276",
+        "android_client_info": {
+          "package_name": "com.feytehan.instaclonekotlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmJH5Vj7tl4kFq6h7GHOkUGk73LxK_Hu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
