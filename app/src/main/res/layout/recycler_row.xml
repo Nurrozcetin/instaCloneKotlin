@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="horizontal">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
-        android:id="@+id/recyclerViewTxtView"
+        android:id="@+id/recyclerViewTxtEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test"
-        android:textColor="#21A826"
-        android:textSize="18sp"
+        android:layout_height="30dp"
+        android:text="e maili yolla"
+        android:textColor="#801093"
+        android:textSize="20sp"
         android:layout_margin="5dp"></TextView>
     <ImageView
-        android:layout_width="200dp"
+        android:id="@+id/recyclerViewImage"
+        android:layout_width="350dp"
         android:layout_height="200dp"
+        android:layout_gravity="center"
         android:layout_margin="5dp"></ImageView>
     <TextView
-        android:id="@+id/recyclerViewTxtPost"
+        android:id="@+id/recyclerViewTxtComment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="aiUEEFGaif"
-        android:textColor="#21A826"
-        android:textSize="18sp"
-        android:layout_margin="5dp"></TextView>
+        android:layout_height="30dp"
+        android:text="bura comment aga"
+        android:textColor="#000000"
+        android:layout_marginBottom="25dp"
+        android:textSize="16sp"></TextView>
 </LinearLayout>

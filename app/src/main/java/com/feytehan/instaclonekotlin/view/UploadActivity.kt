@@ -1,4 +1,4 @@
-package com.feytehan.instaclonekotlin
+package com.feytehan.instaclonekotlin.view
 
 import android.Manifest
 import android.content.Intent
@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.view.inputmethod.InsertGesture
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -17,8 +16,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.feytehan.instaclonekotlin.R
 import com.feytehan.instaclonekotlin.databinding.ActivityUploadBinding
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,6 +25,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import java.util.UUID
 
 class UploadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadBinding
@@ -54,7 +54,34 @@ class UploadActivity : AppCompatActivity() {
     }
 
     fun save(view: View){
+        val uuid = UUID.randomUUID()
+        val imageName = "$uuid.jpg"
+        val reference = storage.reference
+        val imageReference = reference.child("images").child(imageName)
 
+        if(selectedPicture != null){
+            imageReference.putFile(selectedPicture!!).addOnSuccessListener {
+                //download url
+                imageReference.downloadUrl.addOnSuccessListener {
+                    val downloadUrl = it.toString()
+                    val postMap = hashMapOf<String, Any>()
+                    postMap.put("downloadurl", downloadUrl)
+                    postMap.put("useremail", auth.currentUser!!.email!!)
+                    postMap.put("comment", binding.editTxtComment.text.toString())
+                    postMap.put("date", com.google.firebase.Timestamp.now())
+
+                    firestore.collection("Post").add(postMap).addOnSuccessListener {
+                        val intent = Intent(this, FeedActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }.addOnFailureListener{
+                        Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }.addOnFailureListener{
+                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+        }
     }
     fun selectImage(view: View){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
